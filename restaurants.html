@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" id="bookingform">
+        <label for="bookingChoice">Choice of Booking</label>
+        <select id="bookingChoice" onclick="showoption()">
+            <option value="fullday">Full Day Booking</option>
+            <option value="halfday">Half Day Booking</option>
+            <option value="hourly">Hourly Booking</option>
+        </select>
+        <br>
+        <label for="uname">User Name</label>
+        <input type="text" id="uname"><br>
+
+        <label for="monum">mobile Number</label>
+        <input type="tel" id="monum"><br>
+
+        <label for="e-mail">Email</label>
+        <input type="email" id="e-mail"><br>
+
+        <label for="nop">No. Of Person</label>
+        <input type="number" id="nop"><br>
+
+        <div id="datasection">
+            <label for="date">Date</label>
+            <input type="date" id="date"><br>
+        </div>
+        
+        <div id="slotsection" style="display: none;">
+            <label for="time">slot:</label>
+            <select id="timeslot">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="time">Dinner</option>
+            </select><br>
+        </div>
+        <div id="timesection" style="display: none;">
+            <label for="time">Time</label>
+            <input type="time" id="time"><br>
+        </div>
+        <input type="submit" value="submit">
+    </form>
+    <script>
+        function showoption(){
+            let choice=document.getElementById("bookingChoice").value
+            let datasction=document.getElementById("datasection")
+            let timesection=document.getElementById("timesection")
+            let slotsection=document.getElementById("slotsection")
+
+            datasection.style.diplay="none";
+            timesection.style.diplay="none";
+            slotsection.style.diplay="none";
+
+            if(choice=="fullday"){
+                datasction.style.display="block";
+            }
+            else if(choice=="halfday"){
+                datasction.style.display="block";
+                slotsection.style.display="block";
+            }
+            else if(choice=="hourly"){
+                datasction.style.display="block";
+                timesection.style.display="block";
+            }
+        }
+
+        document.getElementById("bookingform").addEventListener("submit",function(event){
+            event.preventDefault();
+
+            let bookingchoice=document.getElementById("bookingChoice").value;
+            let username=document.getElementById("uname").value;
+            let monum=document.getElementById("monum").value;
+            let email=document.getElementById("e-mail").value;
+            let nop=document.getElementById("nop").value;
+
+            let bookingDetails={
+                "choice of booking" : bookingChoice,
+                "User Name":uname,
+                "Mobile Number":monum,
+                "Email":email,
+                "No. of Persons":nop
+            };
+            
+            if(bookingChoice=="fullday"){
+                let data=document.getElementById("data").value;
+                bookingDetails["data"]=data;
+            }
+            else if(bookingChoice=="halfday"){
+                let data=document.getElementById("data").value;
+                let slots=document.getElementById("slot").value;
+                bookingDetails["data"]=data; 
+                bookingDetails["slot"]=slot;
+            }
+            else if(bookingchoice=="hourly"){
+                let data=document.getElementById("data").value;
+                let time=document.getElementById("time").value;
+                bookingDetails["data"]=data;
+                bookingDetails["time"]=time;
+            }
+            console.log(bookingDetails);
+        });
+    </script>
+</body>
+
+</html>
